@@ -1,3 +1,6 @@
 import styled from 'styled-components';
 
-export const name = styled.div``;
+export const ProductsMainLayout = styled.div`
+	width: 100%;
+	padding: 20px;
+`;

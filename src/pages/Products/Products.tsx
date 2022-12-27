@@ -1,5 +1,11 @@
 import React from 'react';
+import { ProductsTable } from '../../components';
+import { ProductsMainLayout } from './Products.styles';
 
 export const Products = () => {
-	return <div>Products</div>;
+	return (
+		<ProductsMainLayout>
+			<ProductsTable />
+		</ProductsMainLayout>
+	);
 };
