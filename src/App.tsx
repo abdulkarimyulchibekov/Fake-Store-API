@@ -1,26 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import { Lang } from './lang/Lang';
+import { Private } from './Private';
+import { Public } from './Public';
+import { useAuthStore } from './store/AuthStore';
+
+i18n.use(initReactI18next).init({
+	fallbackLng: 'ru',
+	interpolation: {
+		escapeValue: false,
+	},
+	resources: {
+		ru: { translation: Lang.ru },
+		uz: { translation: Lang.uz },
+	},
+});
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const token = useAuthStore((state) => state.token);
+	if (token) {
+		return <Private />;
+	}
+	return <Public />;
 }
 
 export default App;
