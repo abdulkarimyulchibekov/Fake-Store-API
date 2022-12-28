@@ -17,6 +17,7 @@ import { useEffect, useState } from 'react';
 import { CircularProgress, TableHead } from '@mui/material';
 import { Link } from 'react-router-dom';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 interface TablePaginationActionsProps {
 	count: number;
@@ -120,25 +121,25 @@ export function ProductsTable() {
 	const [page, setPage] = useState(0);
 	const [rowsPerPage, setRowsPerPage] = useState(5);
 	const [rows, setRows] = useState<RowsType[]>([]);
-	const [data, setData] = useState<DataType[]>([]);
-
+	const [isLoading, setIsLoading] = useState<boolean>(false);
 	const [reload, setReload] = useState(false);
 
+	const { t } = useTranslation();
+
 	useEffect(() => {
+		setIsLoading(true);
 		fetch('https://fakestoreapi.com/products')
 			.then((res) => res.json())
 			.then((json) => {
-				setData(json);
 				setRows(json.map((e: DataType) => createData(e.title, e.price, e.id)));
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => console.log(err))
+			.finally(() => setIsLoading(false));
 	}, [reload]);
 
-	setTimeout(() => {
-		if (!rows) {
-			setReload(!reload);
-		}
-	}, 500);
+	if (!rows) {
+		setReload(!reload);
+	}
 	// Avoid a layout jump when reaching the last page with empty rows.
 	const emptyRows =
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
@@ -157,21 +158,17 @@ export function ProductsTable() {
 		setPage(0);
 	};
 
-	let isRows = data ? true : false;
-
-	if (isRows) {
-		console.log('bor');
-
+	if (!isLoading) {
 		return (
 			<TableContainer component={Paper}>
 				<Table sx={{ minWidth: 500 }} aria-label='custom pagination table'>
 					<TableHead>
 						<TableRow>
 							<TableCell component='th' scope='row'>
-								Product Name
+								{t('table.productName')}
 							</TableCell>
 							<TableCell style={{ width: 160 }} align='right'>
-								Price
+								{t('table.price')}
 							</TableCell>
 							<TableCell style={{ width: 160 }} align='right'>
 								ID
@@ -231,8 +228,6 @@ export function ProductsTable() {
 			</TableContainer>
 		);
 	} else {
-		console.log("YO'q");
-
 		return (
 			<Box
 				sx={{

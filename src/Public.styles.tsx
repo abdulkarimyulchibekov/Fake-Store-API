@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const PrivateLayout = styled.div`
 	width: 100%;
-	height: 100%;
+	height: 91.5vh;
 	background-color: #f0f0f0;
 	display: flex;
 	align-items: center;

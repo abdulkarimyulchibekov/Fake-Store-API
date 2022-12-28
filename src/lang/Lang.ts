@@ -1,5 +1,6 @@
 export const Lang = {
 	uz: {
+		language: 'uz',
 		auth: {
 			login: 'Tizimga kirish',
 			signUp: "Ro'yxatdan o'tish",
@@ -15,8 +16,13 @@ export const Lang = {
 			carts: 'Savat',
 			users: 'Foydalanuvchilar',
 		},
+		table: {
+			productName: 'Mahsulot nomi',
+			price: 'Narx',
+		},
 	},
 	ru: {
+		language: 'ru',
 		auth: {
 			login: 'Войти',
 			signUp: 'Регистрация',
@@ -31,6 +37,10 @@ export const Lang = {
 			categories: 'Категории',
 			carts: 'Корзина',
 			users: 'Пользователи',
+		},
+		table: {
+			productName: 'Имя товар',
+			price: 'Цена',
 		},
 	},
 };

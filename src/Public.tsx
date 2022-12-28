@@ -2,7 +2,7 @@ import { MainForm, PrivateLayout } from './Public.styles';
 import { useTranslation } from 'react-i18next';
 import { FormEvent, useState } from 'react';
 import { useAuthStore } from './store/AuthStore';
-import { Header } from './components/PublicHeader/Header';
+import { PublicHeader } from './components/PublicHeader/Header';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
 
@@ -35,7 +35,7 @@ export const Public = () => {
 
 	return (
 		<>
-			<Header />
+			<PublicHeader />
 			<PrivateLayout>
 				<MainForm onSubmit={handleSubmit}>
 					<h2 className='form__header'>{t('auth.login')}</h2>
@@ -59,7 +59,6 @@ export const Public = () => {
 						type='text'
 						required
 						placeholder={`${t('auth.formNumber')}`}
-						defaultValue='+998'
 					/>
 					<Button onClick={handleSubmit} loading={loading}>
 						{t('auth.submit')}

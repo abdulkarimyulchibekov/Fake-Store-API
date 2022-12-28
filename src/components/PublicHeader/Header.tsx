@@ -1,13 +1,29 @@
+import { changeLanguage } from 'i18next';
 import React from 'react';
-import { Nav } from './Header.styles';
+import { useTranslation } from 'react-i18next';
+import { MainHeader, Nav } from './Header.styles';
 
-export const Header = () => {
+export const PublicHeader = () => {
+	const { t } = useTranslation();
+
 	return (
-		<header>
+		<MainHeader>
 			<Nav>
-				<button className='header__btn'>Py</button>
-				<button className='header__btn'>Uz</button>
+				<button
+					onClick={() => changeLanguage('ru')}
+					className={
+						t('language') === 'ru' ? 'active__btn btn' : 'btn passive__btn'
+					}>
+					Py
+				</button>
+				<button
+					onClick={() => changeLanguage('uz')}
+					className={
+						t('language') === 'ru' ? 'passive__btn btn' : 'btn active__btn'
+					}>
+					Uz
+				</button>
 			</Nav>
-		</header>
+		</MainHeader>
 	);
 };
