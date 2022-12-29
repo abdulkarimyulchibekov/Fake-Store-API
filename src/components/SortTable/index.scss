@@ -1,0 +1,28 @@
+.table-name {
+  text-align: left;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+}
+
+.row-link {
+  text-align: right;
+  text-decoration: none;
+  color: #333;
+}
+
+.row__item {
+  padding: 16px;
+  border-bottom: 1px solid rgba(224, 224, 224, 1);
+  text-align: right;
+}
+
+span>.row-header {
+  height: 100%;
+  color: #333;
+  width: 400px;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-decoration: none;
+  -webkit-line-clamp: 2;
+  text-overflow: ellipsis;
+}

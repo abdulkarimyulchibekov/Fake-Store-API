@@ -1,11 +1,11 @@
 import React from 'react';
-import { ProductsTable } from '../../components';
+import { EnhancedTable } from '../../components';
 import { ProductsMainLayout } from './Products.styles';
 
 export const Products = () => {
 	return (
 		<ProductsMainLayout>
-			<ProductsTable />
+			<EnhancedTable />
 		</ProductsMainLayout>
 	);
 };

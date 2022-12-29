@@ -19,6 +19,8 @@ export const Lang = {
 		table: {
 			productName: 'Mahsulot nomi',
 			price: 'Narx',
+			ratingCount: 'Reyting soni',
+			rate: 'Baho',
 		},
 	},
 	ru: {
@@ -41,6 +43,8 @@ export const Lang = {
 		table: {
 			productName: 'Имя товар',
 			price: 'Цена',
+			ratingCount: 'Подсчет рейтинга',
+			rate: 'Ставка',
 		},
 	},
 };
