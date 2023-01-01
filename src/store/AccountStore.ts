@@ -2,10 +2,13 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 
 const account = (set: any) => ({
-	name: 'Abdulkarim',
+	name: '',
 	roll: 'Admin',
-	description: 'I am a good boy',
-	age: 15,
+	description: '',
+	age: null,
+	number: '',
+	email: '',
+
 	setName: (name: string) => set(() => ({ name: name })),
 	setRoll: (name: string) => set(() => ({ roll: name })),
 	setDesc: (name: string) => set(() => ({ description: name })),

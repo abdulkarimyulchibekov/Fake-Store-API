@@ -13,6 +13,7 @@ import { visuallyHidden } from '@mui/utils';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
+import { CircularProgress } from '@mui/material';
 
 interface Data {
 	calories: number;
@@ -186,8 +187,10 @@ export function EnhancedTable() {
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
 	const [rows, setRows] = React.useState<any[]>([]);
+	const [loading, setLoading] = React.useState<boolean>(false);
 
 	React.useEffect(() => {
+		setLoading(true);
 		fetch('https://fakestoreapi.com/products')
 			.then((res) => res.json())
 			.then((json) => {
@@ -197,7 +200,8 @@ export function EnhancedTable() {
 					),
 				);
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => console.log(err))
+			.finally(() => setLoading(false));
 	}, []);
 
 	const handleRequestSort = (
@@ -233,79 +237,92 @@ export function EnhancedTable() {
 	const emptyRows =
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-	return (
-		<Box sx={{ width: '100%' }}>
-			<Paper sx={{ width: '100%', mb: 2 }}>
-				<TableContainer>
-					<Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle'>
-						<EnhancedTableHead
-							numSelected={selected.length}
-							order={order}
-							orderBy={orderBy}
-							onSelectAllClick={handleSelectAllClick}
-							onRequestSort={handleRequestSort}
-							rowCount={rows.length}
-						/>
-						<TableBody>
-							{stableSort(rows, getComparator(order, orderBy))
-								.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-								.map((row, index) => {
-									const labelId = `enhanced-table-checkbox-${index}`;
-									return (
-										<TableRow
-											hover
-											role='checkbox'
-											tabIndex={-1}
-											key={row.name}>
-											<TableCell padding='checkbox'></TableCell>
-											<th id={labelId} scope='row' className='table-name'>
-												<span>
-													<Link className='row-header' to={`${row.calories}`}>
-														{row.name}
+	if (loading) {
+		return (
+			<Box
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					justifyContent: 'center',
+				}}>
+				<CircularProgress />
+			</Box>
+		);
+	} else {
+		return (
+			<Box sx={{ width: '100%' }}>
+				<Paper sx={{ width: '100%', mb: 2 }}>
+					<TableContainer>
+						<Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle'>
+							<EnhancedTableHead
+								numSelected={selected.length}
+								order={order}
+								orderBy={orderBy}
+								onSelectAllClick={handleSelectAllClick}
+								onRequestSort={handleRequestSort}
+								rowCount={rows.length}
+							/>
+							<TableBody>
+								{stableSort(rows, getComparator(order, orderBy))
+									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+									.map((row, index) => {
+										const labelId = `enhanced-table-checkbox-${index}`;
+										return (
+											<TableRow
+												hover
+												role='checkbox'
+												tabIndex={-1}
+												key={row.name}>
+												<TableCell padding='checkbox'></TableCell>
+												<th id={labelId} scope='row' className='table-name'>
+													<span>
+														<Link className='row-header' to={`${row.calories}`}>
+															{row.name}
+														</Link>
+													</span>
+												</th>
+												<td className='row__item'>
+													<Link className='row-link' to={`${row.calories}`}>
+														{row.fat}
 													</Link>
-												</span>
-											</th>
-											<td className='row__item'>
-												<Link className='row-link' to={`${row.calories}`}>
-													{row.fat}
-												</Link>
-											</td>
-											<td className='row__item'>
-												<Link className='row-link' to={`${row.calories}`}>
-													{row.carbs}
-												</Link>
-											</td>
-											<td className='row__item'>
-												<Link className='row-link' to={`${row.calories}`}>
-													{row.protein}
-												</Link>
-											</td>
-											<td className='row__item'>
-												<Link className='row-link' to={`${row.calories}`}>
-													{row.calories}
-												</Link>
-											</td>
-										</TableRow>
-									);
-								})}
-							{emptyRows > 0 && (
-								<TableRow>
-									<TableCell colSpan={6} />
-								</TableRow>
-							)}
-						</TableBody>
-					</Table>
-				</TableContainer>
-				<TablePagination
-					rowsPerPageOptions={[5, 10, 25]}
-					component='div'
-					count={rows.length}
-					rowsPerPage={rowsPerPage}
-					page={page}
-					onPageChange={handleChangePage}
-					onRowsPerPageChange={handleChangeRowsPerPage}
-				/>
-			</Paper>
-		</Box>
-	);
+												</td>
+												<td className='row__item'>
+													<Link className='row-link' to={`${row.calories}`}>
+														{row.carbs}
+													</Link>
+												</td>
+												<td className='row__item'>
+													<Link className='row-link' to={`${row.calories}`}>
+														{row.protein}
+													</Link>
+												</td>
+												<td className='row__item'>
+													<Link className='row-link' to={`${row.calories}`}>
+														{row.calories}
+													</Link>
+												</td>
+											</TableRow>
+										);
+									})}
+								{emptyRows > 0 && (
+									<TableRow>
+										<TableCell colSpan={6} />
+									</TableRow>
+								)}
+							</TableBody>
+						</Table>
+					</TableContainer>
+					<TablePagination
+						rowsPerPageOptions={[5, 10, 25]}
+						component='div'
+						count={rows.length}
+						rowsPerPage={rowsPerPage}
+						page={page}
+						onPageChange={handleChangePage}
+						onRowsPerPageChange={handleChangeRowsPerPage}
+					/>
+				</Paper>
+			</Box>
+		);
+	}
 }

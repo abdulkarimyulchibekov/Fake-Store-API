@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { useAccountStore } from '../../store/AccountStore';
 import { AccountMainLayout } from './Account.styles';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 export const Account = () => {
 	const setName = useAccountStore((state) => state.setName);
@@ -75,7 +75,7 @@ export const Account = () => {
 						<input
 							name='age'
 							required
-							defaultValue={age}
+							defaultValue={age ? age : ''}
 							className='form__input'
 							type='text'
 							onChange={(evt) => {

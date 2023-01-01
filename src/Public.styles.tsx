@@ -29,6 +29,10 @@ export const MainForm = styled.form`
 		border-radius: 8px;
 	}
 
+	.invalid {
+		border-color: red;
+	}
+
 	.form__btn {
 		background-color: #777777;
 		color: #fff;
