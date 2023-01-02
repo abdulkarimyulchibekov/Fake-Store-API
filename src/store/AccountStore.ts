@@ -6,13 +6,15 @@ const account = (set: any) => ({
 	roll: 'Admin',
 	description: '',
 	age: null,
-	number: '',
 	email: '',
+	phone: '',
 
 	setName: (name: string) => set(() => ({ name: name })),
 	setRoll: (name: string) => set(() => ({ roll: name })),
 	setDesc: (name: string) => set(() => ({ description: name })),
 	setAge: (name: number) => set(() => ({ age: name })),
+	setEmail: (name: string) => set(() => ({ email: name })),
+	setPhone: (name: string) => set(() => ({ phone: name })),
 });
 
 const accountStore = persist(account, { name: 'account' });

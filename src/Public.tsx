@@ -1,10 +1,17 @@
 import { MainForm, PrivateLayout } from './Public.styles';
 import { useTranslation } from 'react-i18next';
-import { FormEvent, useState, useRef, useEffect, useMemo } from 'react';
+import { FormEvent, useState, useEffect } from 'react';
 import { useAuthStore } from './store/AuthStore';
+import { useAccountStore } from './store/AccountStore';
 import { PublicHeader } from './components/PublicHeader/Header';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'antd';
+
+type DataType = {
+	name: string;
+	phone: string;
+	email: string;
+};
 
 export const Public = () => {
 	const { t } = useTranslation();
@@ -12,26 +19,23 @@ export const Public = () => {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [disabled, setDisabled] = useState<boolean>(true);
+	const setName = useAccountStore((state) => state.setName);
+	const setEmail = useAccountStore((state) => state.setEmail);
+	const setPhone = useAccountStore((state) => state.setPhone);
 
-	const [canSubmit, setCanSubmit] = useState({
-		name: false,
-		phone: false,
-		email: false,
+	const [data, setData] = useState<DataType>({
+		name: '',
+		phone: '',
+		email: '',
 	});
 
 	useEffect(() => {
-		console.log('Aloo');
-
-		console.log(canSubmit);
-
-		if (canSubmit.email && canSubmit.phone && canSubmit.name) {
+		if (data.email && data.phone && data.name) {
 			setDisabled(false);
-			console.log('btn ishlashi kk');
 		} else {
-			console.log('btn ishlashi kkmas');
 			setDisabled(true);
 		}
-	}, [canSubmit]);
+	}, [data]);
 
 	const handleSubmit = (evt: FormEvent) => {
 		evt.preventDefault();
@@ -49,6 +53,9 @@ export const Public = () => {
 			.finally(() => {
 				setToken('eyJhbGciOiJIUzI1NiIsInR');
 				setLoading(false);
+				setName(data.name);
+				setPhone(data.phone);
+				setEmail(data.email);
 			});
 
 		navigate('/');
@@ -68,8 +75,8 @@ export const Public = () => {
 						placeholder={`${t('auth.formName')}`}
 						onChange={(evt) => {
 							evt.target.value
-								? setCanSubmit({ ...canSubmit, name: true })
-								: setCanSubmit({ ...canSubmit, name: false });
+								? setData({ ...data, name: evt.target.value })
+								: setData({ ...data, name: '' });
 						}}
 						aria-label='Enter your full name'
 					/>
@@ -87,10 +94,10 @@ export const Public = () => {
 									)
 							) {
 								evt.target.classList.remove('invalid');
-								setCanSubmit({ ...canSubmit, email: true });
+								setData({ ...data, email: evt.target.value });
 							} else {
 								evt.target.classList.add('invalid');
-								setCanSubmit({ ...canSubmit, email: false });
+								setData({ ...data, email: '' });
 							}
 						}}
 						type='email'
@@ -107,11 +114,10 @@ export const Public = () => {
 							) {
 								evt.target.classList.add('invalid');
 								evt.target.classList.remove('valid');
-								setCanSubmit({ ...canSubmit, phone: false });
+								setData({ ...data, phone: '' });
 							} else {
-								console.log('else ishlavotti');
 								evt.target.classList.add('valid');
-								setCanSubmit({ ...canSubmit, phone: true });
+								setData({ ...data, phone: evt.target.value });
 								evt.target.classList.remove('invalid');
 							}
 						}}
