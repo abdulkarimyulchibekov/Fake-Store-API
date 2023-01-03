@@ -11,7 +11,7 @@ export const PrivateLayout = styled.div`
 
 export const MainForm = styled.form`
 	width: 400px;
-	height: 300px;
+	height: 400px;
 	background-color: #fff;
 	padding: 20px;
 	text-align: center;
@@ -48,5 +48,17 @@ export const MainForm = styled.form`
 			color: #777777;
 			background-color: #fff;
 		}
+	}
+
+	.form__text {
+		resize: none;
+		display: block;
+		width: 100%;
+		margin-bottom: 20px;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		padding-left: 7px;
+		border: 1.6px #333 solid;
+		border-radius: 8px;
 	}
 `;

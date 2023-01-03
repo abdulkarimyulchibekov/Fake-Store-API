@@ -8,6 +8,8 @@ export const Lang = {
 			formEmail: 'Emailingizni kiriting...',
 			formNumber: 'Telefon raqamingizni kiriting...',
 			submit: "Jo'natish",
+			formAge: 'Yoshingizni kiriting...',
+			formText: 'Tavsif kiriting...',
 		},
 		menu: {
 			dashboard: 'Boshqaruv paneli',
@@ -32,6 +34,8 @@ export const Lang = {
 			formEmail: 'Введите адрес электронной почты...',
 			formNumber: 'Введите свой номер телефона...',
 			submit: 'Войти',
+			formAge: 'Введите свой возраст...',
+			formText: 'Введите описание...',
 		},
 		menu: {
 			dashboard: 'Приборная панель',

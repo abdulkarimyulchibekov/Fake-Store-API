@@ -11,6 +11,8 @@ type DataType = {
 	name: string;
 	phone: string;
 	email: string;
+	age: null | number;
+	bio: string;
 };
 
 export const Public = () => {
@@ -22,15 +24,19 @@ export const Public = () => {
 	const setName = useAccountStore((state) => state.setName);
 	const setEmail = useAccountStore((state) => state.setEmail);
 	const setPhone = useAccountStore((state) => state.setPhone);
+	const setAge = useAccountStore((state) => state.setAge);
+	const setDesc = useAccountStore((state) => state.setDesc);
 
 	const [data, setData] = useState<DataType>({
 		name: '',
 		phone: '',
 		email: '',
+		age: null,
+		bio: '',
 	});
 
 	useEffect(() => {
-		if (data.email && data.phone && data.name) {
+		if (data.email && data.phone && data.name && data.age) {
 			setDisabled(false);
 		} else {
 			setDisabled(true);
@@ -56,6 +62,8 @@ export const Public = () => {
 				setName(data.name);
 				setPhone(data.phone);
 				setEmail(data.email);
+				setDesc(data.bio);
+				setAge(data.age ? data.age : 0);
 			});
 
 		navigate('/');
@@ -126,6 +134,34 @@ export const Public = () => {
 						required
 						placeholder={`${t('auth.formNumber')}`}
 					/>
+					<input
+						type='number'
+						className='form__input'
+						aria-label='Enter your age'
+						onChange={(evt) => {
+							if (+evt.target.value >= 0) {
+								evt.target.classList.remove('invalid');
+								setData({
+									...data,
+									age: +evt.target.value,
+								});
+							} else {
+								evt.target.classList.add('invalid');
+								setData({
+									...data,
+									age: null,
+								});
+							}
+						}}
+						placeholder={`${t('auth.formAge')}`}
+						name='age'
+					/>
+					<textarea
+						placeholder={`${t('auth.formText')}`}
+						onChange={(evt) => {
+							setData({ ...data, bio: evt.target.value });
+						}}
+						className='form__text'></textarea>
 					<Button disabled={disabled} onClick={handleSubmit} loading={loading}>
 						{t('auth.submit')}
 					</Button>
