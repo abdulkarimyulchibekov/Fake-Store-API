@@ -1,5 +1,10 @@
-import React from 'react';
+import { Category } from '../../containers';
+import { MainCategoryLayout } from './Categories.styles';
 
 export const Categories = () => {
-	return <div>Categories</div>;
+	return (
+		<MainCategoryLayout>
+			<Category />
+		</MainCategoryLayout>
+	);
 };

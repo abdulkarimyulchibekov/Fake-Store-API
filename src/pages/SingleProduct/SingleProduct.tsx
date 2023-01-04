@@ -1,19 +1,10 @@
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { MainProductLayout } from './SingleProduct.styles';
 import { useEffect, useState } from 'react';
 import { Box } from '@mui/system';
 import { CircularProgress } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-
-type DataType = {
-	category: string;
-	description: string;
-	id: number;
-	image: string;
-	price: number;
-	rating: { rate: number; count: number };
-	title: string;
-};
+import { DataType } from '../../types';
 
 export const SingleProduct = () => {
 	const { id } = useParams();
@@ -61,6 +52,11 @@ export const SingleProduct = () => {
 							</p>
 							<p className='product__text'>Count: {data?.rating.count}</p>
 						</div>
+						<Link
+							to={`/categories/${data?.category}`}
+							className='product__category'>
+							Category: <span>{data?.category}</span>
+						</Link>
 					</div>
 				</div>
 			</MainProductLayout>

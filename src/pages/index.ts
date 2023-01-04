@@ -5,3 +5,6 @@ export * from './Products';
 export * from './Users';
 export * from './Account';
 export * from './SingleProduct';
+export * from './SingleCategory';
+export * from './SingleUser';
+export * from './SingleCart';

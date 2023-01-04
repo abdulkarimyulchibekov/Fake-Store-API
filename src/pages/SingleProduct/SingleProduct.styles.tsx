@@ -46,4 +46,15 @@ export const MainProductLayout = styled.div`
 			margin-right: 5px;
 		}
 	}
+
+	.product__category {
+		font-size: 20px;
+		color: #333;
+		text-decoration: none;
+		text-transform: capitalize;
+
+		& > span {
+			color: #0e0ec9;
+		}
+	}
 `;

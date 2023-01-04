@@ -9,33 +9,33 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
-import { visuallyHidden } from '@mui/utils';
-import { Link } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import './index.scss';
 import { CircularProgress } from '@mui/material';
+import { visuallyHidden } from '@mui/utils';
+import { UserType } from '../../types';
+import { Link } from 'react-router-dom';
+import './index.scss';
 
 interface Data {
-	calories: number;
-	carbs: number;
-	fat: number;
+	phone: string;
+	email: string;
 	name: string;
-	protein: number;
+	zipcode: string;
+	id: number;
 }
 
 function createData(
 	name: string,
-	calories: number,
-	fat: number,
-	carbs: number,
-	protein: number,
+	email: string,
+	phone: string,
+	zipcode: string,
+	id: number,
 ): Data {
 	return {
 		name,
-		calories,
-		fat,
-		carbs,
-		protein,
+		email,
+		phone,
+		zipcode,
+		id,
 	};
 }
 
@@ -85,55 +85,50 @@ interface HeadCell {
 	numeric: boolean;
 }
 
+const headCells: readonly HeadCell[] = [
+	{
+		id: 'name',
+		numeric: false,
+		disablePadding: true,
+		label: 'Name',
+	},
+	{
+		id: 'email',
+		numeric: true,
+		disablePadding: false,
+		label: 'Email',
+	},
+	{
+		id: 'phone',
+		numeric: true,
+		disablePadding: false,
+		label: 'Phone',
+	},
+	{
+		id: 'zipcode',
+		numeric: true,
+		disablePadding: false,
+		label: 'Zipcode',
+	},
+	{
+		id: 'id',
+		numeric: true,
+		disablePadding: false,
+		label: 'ID',
+	},
+];
+
 interface EnhancedTableProps {
-	numSelected: number;
 	onRequestSort: (
 		event: React.MouseEvent<unknown>,
 		property: keyof Data,
 	) => void;
-	onSelectAllClick: (event: React.ChangeEvent<HTMLInputElement>) => void;
 	order: Order;
 	orderBy: string;
-	rowCount: number;
 }
 
 function EnhancedTableHead(props: EnhancedTableProps) {
 	const { order, orderBy, onRequestSort } = props;
-	const { t } = useTranslation();
-
-	const headCells: readonly HeadCell[] = [
-		{
-			id: 'name',
-			numeric: false,
-			disablePadding: true,
-			label: t('table.productName'),
-		},
-		{
-			id: 'fat',
-			numeric: true,
-			disablePadding: false,
-			label: t('table.price'),
-		},
-		{
-			id: 'carbs',
-			numeric: true,
-			disablePadding: false,
-			label: t('table.ratingCount'),
-		},
-		{
-			id: 'protein',
-			numeric: true,
-			disablePadding: false,
-			label: t('table.rate'),
-		},
-		{
-			id: 'calories',
-			numeric: true,
-			disablePadding: false,
-			label: 'ID',
-		},
-	];
-
 	const createSortHandler =
 		(property: keyof Data) => (event: React.MouseEvent<unknown>) => {
 			onRequestSort(event, property);
@@ -167,43 +162,31 @@ function EnhancedTableHead(props: EnhancedTableProps) {
 	);
 }
 
-type DataType = {
-	id: number;
-	title: string;
-	price: number;
-	description: string;
-	category: string;
-	image: string;
-	rating: {
-		rate: number;
-		count: number;
-	};
-};
-
-interface IProps {
-	url: string;
-}
-
-export function EnhancedTable({ url }: IProps) {
+export function UsersTable() {
 	const [order, setOrder] = React.useState<Order>('asc');
-	const [orderBy, setOrderBy] = React.useState<keyof Data>('calories');
-	const [selected, setSelected] = React.useState<readonly string[]>([]);
+	const [orderBy, setOrderBy] = React.useState<keyof Data>('id');
 	const [page, setPage] = React.useState(0);
 	const [rowsPerPage, setRowsPerPage] = React.useState(5);
-	const [rows, setRows] = React.useState<any[]>([]);
-	const [loading, setLoading] = React.useState<boolean>(false);
+	const [rows, setRows] = React.useState<Data[]>([]);
+	const [loading, setLoading] = React.useState(false);
 
 	React.useEffect(() => {
 		setLoading(true);
-		fetch(url)
+		fetch('https://fakestoreapi.com/users')
 			.then((res) => res.json())
-			.then((json) => {
+			.then((json) =>
 				setRows(
-					json.map((e: DataType) =>
-						createData(e.title, e.id, e.price, e.rating.count, e.rating.rate),
+					json.map((e: UserType) =>
+						createData(
+							e.name.firstname + ' ' + e.name.lastname,
+							e.email,
+							e.phone,
+							e.address.zipcode,
+							e.id,
+						),
 					),
-				);
-			})
+				),
+			)
 			.catch((err) => console.log(err))
 			.finally(() => setLoading(false));
 	}, []);
@@ -215,15 +198,6 @@ export function EnhancedTable({ url }: IProps) {
 		const isAsc = orderBy === property && order === 'asc';
 		setOrder(isAsc ? 'desc' : 'asc');
 		setOrderBy(property);
-	};
-
-	const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (event.target.checked) {
-			const newSelected = rows.map((n) => n.name);
-			setSelected(newSelected);
-			return;
-		}
-		setSelected([]);
 	};
 
 	const handleChangePage = (event: unknown, newPage: number) => {
@@ -248,6 +222,7 @@ export function EnhancedTable({ url }: IProps) {
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
+					padding: 20,
 				}}>
 				<CircularProgress />
 			</Box>
@@ -257,20 +232,21 @@ export function EnhancedTable({ url }: IProps) {
 			<Box sx={{ width: '100%' }}>
 				<Paper sx={{ width: '100%', mb: 2 }}>
 					<TableContainer>
-						<Table sx={{ minWidth: 750 }} aria-labelledby='tableTitle'>
+						<Table
+							sx={{ minWidth: 750 }}
+							aria-labelledby='tableTitle'
+							size={'medium'}>
 							<EnhancedTableHead
-								numSelected={selected.length}
 								order={order}
 								orderBy={orderBy}
-								onSelectAllClick={handleSelectAllClick}
 								onRequestSort={handleRequestSort}
-								rowCount={rows.length}
 							/>
 							<TableBody>
 								{stableSort(rows, getComparator(order, orderBy))
 									.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
 									.map((row, index) => {
 										const labelId = `enhanced-table-checkbox-${index}`;
+
 										return (
 											<TableRow
 												hover
@@ -278,48 +254,39 @@ export function EnhancedTable({ url }: IProps) {
 												tabIndex={-1}
 												key={row.name}>
 												<TableCell padding='checkbox'></TableCell>
-												<th id={labelId} scope='row' className='table-name'>
-													<span>
-														<Link
-															className='row-header'
-															to={`/products/${row.calories}`}>
-															{row.name}
-														</Link>
-													</span>
+												<th className='table__header' id={labelId} scope='row'>
+													<Link className='table__link' to={`${row.id}`}>
+														{row.name}
+													</Link>
 												</th>
-												<td className='row__item'>
-													<Link
-														className='row-link'
-														to={`/products/${row.calories}`}>
-														{row.fat}
+												<td className='table__data'>
+													<Link className='table__link' to={`${row.id}`}>
+														{row.email}
 													</Link>
 												</td>
-												<td className='row__item'>
-													<Link
-														className='row-link'
-														to={`/products/${row.calories}`}>
-														{row.carbs}
+												<td className='table__data'>
+													<Link className='table__link' to={`${row.id}`}>
+														{row.phone}
 													</Link>
 												</td>
-												<td className='row__item'>
-													<Link
-														className='row-link'
-														to={`/products/${row.calories}`}>
-														{row.protein}
+												<td className='table__data'>
+													<Link className='table__link' to={`${row.id}`}>
+														{row.zipcode}
 													</Link>
 												</td>
-												<td className='row__item'>
-													<Link
-														className='row-link'
-														to={`/products/${row.calories}`}>
-														{row.calories}
+												<td className='table__data'>
+													<Link className='table__link' to={`${row.id}`}>
+														{row.id}
 													</Link>
 												</td>
 											</TableRow>
 										);
 									})}
 								{emptyRows > 0 && (
-									<TableRow>
+									<TableRow
+										style={{
+											height: 53 * emptyRows,
+										}}>
 										<TableCell colSpan={6} />
 									</TableRow>
 								)}
