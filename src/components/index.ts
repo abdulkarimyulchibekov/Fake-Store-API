@@ -7,3 +7,5 @@ export * from './CategoryItem';
 export * from './UsersTable';
 export * from './Cart';
 export * from './CartItem';
+export * from './UserSection';
+export * from './ProductSection';
