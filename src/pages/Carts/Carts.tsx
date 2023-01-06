@@ -1,4 +1,3 @@
-import React from 'react';
 import { CartItem, Loading } from '../../components';
 import { List, MainLayout } from './Carts.styles';
 import { useEffect, useState } from 'react';

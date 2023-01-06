@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAccountStore } from '../../store/AccountStore';
 import { AccountMainLayout } from './Account.styles';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const Account = () => {
 	const setName = useAccountStore((state) => state.setName);
@@ -11,6 +12,8 @@ export const Account = () => {
 	const setPhone = useAccountStore((state) => state.setPhone);
 
 	const navigate = useNavigate();
+
+	const { t } = useTranslation();
 
 	const name = useAccountStore((state) => state.name);
 	const age = useAccountStore((state) => state.age);
@@ -53,7 +56,7 @@ export const Account = () => {
 				/>
 				<div className='form__main'>
 					<label className='form__label'>
-						<span>Change your name</span>
+						<span>{t('account.name')}</span>
 						<input
 							name='name'
 							defaultValue={name}
@@ -80,26 +83,25 @@ export const Account = () => {
 						/>
 					</label>
 					<label className='form__label'>
-						<span>Change your age</span>
+						<span>{t('account.age')}</span>
 						<input
 							name='age'
 							required
-							defaultValue={age ? age : ''}
+							defaultValue={canSubmit.age ? canSubmit.age : ''}
 							className='form__input'
 							type='text'
 							onChange={(evt) => {
-								const age = evt.target.value;
-								if (age.match(/[^1-9]/g)) {
+								if (evt.target.value.match(/[^1-9]/g)) {
 									evt.target.classList.add('invalid');
 								} else {
-									evt.target.classList.add('valid');
-									setCanSubmit({ ...canSubmit, phone: evt.target.value });
+									evt.target.classList.remove('invalid');
+									setCanSubmit({ ...canSubmit, age: evt.target.value });
 								}
 							}}
 						/>
 					</label>
 					<label className='form__label'>
-						<span>Change your email</span>
+						<span>{t('account.email')}</span>
 						<input
 							name='email'
 							defaultValue={email ? email : ''}
@@ -117,7 +119,7 @@ export const Account = () => {
 						/>
 					</label>
 					<label className='form__label'>
-						<span>Change your phone number</span>
+						<span>{t('account.phoneNumber')}</span>
 						<input
 							name='phone'
 							defaultValue={phone ? phone : ''}
@@ -141,7 +143,7 @@ export const Account = () => {
 						/>
 					</label>
 					<label className='form__label'>
-						<span>Change your bio</span>
+						<span>{t('account.bio')}</span>
 						<textarea
 							defaultValue={description}
 							rows={10}

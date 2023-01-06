@@ -11,7 +11,7 @@ type DataType = {
 	name: string;
 	phone: string;
 	email: string;
-	age: null | number;
+	age: string;
 	bio: string;
 };
 
@@ -31,7 +31,7 @@ export const Public = () => {
 		name: '',
 		phone: '',
 		email: '',
-		age: null,
+		age: '',
 		bio: '',
 	});
 
@@ -63,7 +63,7 @@ export const Public = () => {
 				setPhone(data.phone);
 				setEmail(data.email);
 				setDesc(data.bio);
-				setAge(data.age ? data.age : 0);
+				setAge(data.age);
 			});
 
 		navigate('/');
@@ -143,13 +143,13 @@ export const Public = () => {
 								evt.target.classList.remove('invalid');
 								setData({
 									...data,
-									age: +evt.target.value,
+									age: evt.target.value,
 								});
 							} else {
 								evt.target.classList.add('invalid');
 								setData({
 									...data,
-									age: null,
+									age: '',
 								});
 							}
 						}}

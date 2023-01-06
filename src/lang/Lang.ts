@@ -24,6 +24,13 @@ export const Lang = {
 			ratingCount: 'Reyting soni',
 			rate: 'Baho',
 		},
+		account: {
+			name: "Ismingizni o'zgartirin",
+			age: "Yoshingizni o'zgartirin",
+			email: "Elektron pochtangizni o'zgartiring",
+			phoneNumber: "Telefon raqamingizni o'zgartiring",
+			bio: "Tavsifingizni o'zgartiring",
+		},
 	},
 	ru: {
 		language: 'ru',
@@ -49,6 +56,13 @@ export const Lang = {
 			price: 'Цена',
 			ratingCount: 'Подсчет рейтинга',
 			rate: 'Ставка',
+		},
+		account: {
+			name: 'Измените свое имя',
+			age: 'Измените свой возраст',
+			email: 'Измените свой адрес электронной почты',
+			phoneNumber: 'Измените свой номер телефона',
+			bio: 'Измените свою биографию',
 		},
 	},
 };
