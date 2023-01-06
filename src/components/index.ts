@@ -5,7 +5,7 @@ export * from './Header';
 export * from './SortTable/SortTable';
 export * from './CategoryItem';
 export * from './UsersTable';
-export * from './Cart';
 export * from './CartItem';
 export * from './UserSection';
 export * from './ProductSection';
+export * from './Loading';

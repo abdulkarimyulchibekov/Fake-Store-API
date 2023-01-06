@@ -9,10 +9,10 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
-import { CircularProgress } from '@mui/material';
 import { visuallyHidden } from '@mui/utils';
 import { UserType } from '../../types';
 import { Link } from 'react-router-dom';
+import { Loading } from '../Loading';
 import './index.scss';
 
 interface Data {
@@ -216,17 +216,7 @@ export function UsersTable() {
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
 	if (loading) {
-		return (
-			<Box
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-					padding: 20,
-				}}>
-				<CircularProgress />
-			</Box>
-		);
+		return <Loading />;
 	} else {
 		return (
 			<Box sx={{ width: '100%' }}>

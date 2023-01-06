@@ -1,12 +1,11 @@
-import { Box } from '@mui/system';
 import { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { UserType } from '../../types';
 import { MainLayout } from './SingleUser.styles';
-import { CircularProgress } from '@mui/material';
 import CallIcon from '@mui/icons-material/Call';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import { Loading } from '../../components';
 
 export const SingleUser = () => {
 	const { id } = useParams();
@@ -22,18 +21,10 @@ export const SingleUser = () => {
 			.then((json) => setData(json))
 			.catch((err) => console.log(err))
 			.finally(() => setLoading(false));
-	}, []);
+	}, [id]);
+
 	if (loading) {
-		return (
-			<Box
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}>
-				<CircularProgress />
-			</Box>
-		);
+		return <Loading />;
 	} else {
 		return (
 			<MainLayout>

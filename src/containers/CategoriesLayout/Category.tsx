@@ -1,8 +1,7 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
-import { CircularProgress, Box } from '@mui/material';
 import { MainList } from './Category.styles';
-import { CategoryItem } from '../../components';
+import { CategoryItem, Loading } from '../../components';
 
 export const Category = () => {
 	const [loading, setLoading] = useState<boolean>(false);
@@ -16,16 +15,7 @@ export const Category = () => {
 			.finally(() => setLoading(false));
 	}, []);
 	if (loading === true) {
-		return (
-			<Box
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}>
-				<CircularProgress />
-			</Box>
-		);
+		return <Loading />;
 	} else {
 		return (
 			<MainList>

@@ -1,4 +1,4 @@
-export type DataType = {
+export type ProductType = {
 	category: string;
 	description: string;
 	id: number;

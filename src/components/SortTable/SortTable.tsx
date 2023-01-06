@@ -13,7 +13,7 @@ import { visuallyHidden } from '@mui/utils';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import './index.scss';
-import { CircularProgress } from '@mui/material';
+import { Loading } from '../Loading';
 
 interface Data {
 	calories: number;
@@ -206,7 +206,7 @@ export function EnhancedTable({ url }: IProps) {
 			})
 			.catch((err) => console.log(err))
 			.finally(() => setLoading(false));
-	}, []);
+	}, [url]);
 
 	const handleRequestSort = (
 		event: React.MouseEvent<unknown>,
@@ -242,16 +242,7 @@ export function EnhancedTable({ url }: IProps) {
 		page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
 	if (loading) {
-		return (
-			<Box
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}>
-				<CircularProgress />
-			</Box>
-		);
+		return <Loading />;
 	} else {
 		return (
 			<Box sx={{ width: '100%' }}>

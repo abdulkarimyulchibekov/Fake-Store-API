@@ -1,14 +1,13 @@
 import { Link, useParams } from 'react-router-dom';
 import { MainProductLayout } from './SingleProduct.styles';
 import { useEffect, useState } from 'react';
-import { Box } from '@mui/system';
-import { CircularProgress } from '@mui/material';
 import StarIcon from '@mui/icons-material/Star';
-import { DataType } from '../../types';
+import { ProductType } from '../../types';
+import { Loading } from '../../components';
 
 export const SingleProduct = () => {
 	const { id } = useParams();
-	const [data, setData] = useState<DataType>();
+	const [data, setData] = useState<ProductType>();
 	const [loading, setLoading] = useState<boolean>();
 
 	useEffect(() => {
@@ -18,19 +17,10 @@ export const SingleProduct = () => {
 			.then((json) => setData(json))
 			.catch((err) => console.log(err))
 			.finally(() => setLoading(false));
-	}, []);
+	}, [id]);
 
 	if (loading) {
-		return (
-			<Box
-				sx={{
-					display: 'flex',
-					alignItems: 'center',
-					justifyContent: 'center',
-				}}>
-				<CircularProgress />
-			</Box>
-		);
+		return <Loading />;
 	} else {
 		return (
 			<MainProductLayout>
