@@ -29,7 +29,7 @@ export const SingleCart = () => {
 				{data?.products.length && (
 					<ul className='list'>
 						{data.products.map((e) => (
-							<ProductSection productId={e.productId} />
+							<ProductSection quantity={e.quantity} productId={e.productId} />
 						))}
 					</ul>
 				)}

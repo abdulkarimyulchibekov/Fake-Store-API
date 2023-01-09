@@ -43,3 +43,5 @@ export type CartType = {
 	__v: number;
 	userName: string | undefined;
 };
+
+export type Types = ProductType | UserType | CartType | CartProductType;

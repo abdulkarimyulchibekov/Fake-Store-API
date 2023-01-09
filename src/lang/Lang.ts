@@ -30,6 +30,23 @@ export const Lang = {
 			email: "Elektron pochtangizni o'zgartiring",
 			phoneNumber: "Telefon raqamingizni o'zgartiring",
 			bio: "Tavsifingizni o'zgartiring",
+			submit: "O'zgartirish",
+		},
+		users: {
+			name: 'Ism',
+			email: 'El. pochta',
+			phone: 'Telefon',
+			zipcode: 'Pochta indeksi',
+		},
+		carts: {
+			name: 'Foydalanuvchi nomi',
+			see: 'Batafsil',
+		},
+		product: {
+			price: 'Narxi',
+			rating: 'Reyting',
+			count: 'Hisob',
+			category: 'Toifa',
 		},
 	},
 	ru: {
@@ -63,6 +80,23 @@ export const Lang = {
 			email: 'Измените свой адрес электронной почты',
 			phoneNumber: 'Измените свой номер телефона',
 			bio: 'Измените свою биографию',
+			submit: 'Изменить',
+		},
+		users: {
+			name: 'Имя',
+			email: 'Эл. адрес',
+			phone: 'Телефон',
+			zipcode: 'Почтовый индекс',
+		},
+		carts: {
+			name: 'Имя пользователя',
+			see: 'Узнать больше',
+		},
+		product: {
+			price: 'Цена',
+			rating: 'Рейтинг',
+			count: 'Счет',
+			category: 'Категория',
 		},
 	},
 };

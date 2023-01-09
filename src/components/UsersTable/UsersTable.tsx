@@ -14,6 +14,7 @@ import { UserType } from '../../types';
 import { Link } from 'react-router-dom';
 import { Loading } from '../Loading';
 import './index.scss';
+import { useTranslation } from 'react-i18next';
 
 interface Data {
 	phone: string;
@@ -85,39 +86,6 @@ interface HeadCell {
 	numeric: boolean;
 }
 
-const headCells: readonly HeadCell[] = [
-	{
-		id: 'name',
-		numeric: false,
-		disablePadding: true,
-		label: 'Name',
-	},
-	{
-		id: 'email',
-		numeric: true,
-		disablePadding: false,
-		label: 'Email',
-	},
-	{
-		id: 'phone',
-		numeric: true,
-		disablePadding: false,
-		label: 'Phone',
-	},
-	{
-		id: 'zipcode',
-		numeric: true,
-		disablePadding: false,
-		label: 'Zipcode',
-	},
-	{
-		id: 'id',
-		numeric: true,
-		disablePadding: false,
-		label: 'ID',
-	},
-];
-
 interface EnhancedTableProps {
 	onRequestSort: (
 		event: React.MouseEvent<unknown>,
@@ -129,10 +97,44 @@ interface EnhancedTableProps {
 
 function EnhancedTableHead(props: EnhancedTableProps) {
 	const { order, orderBy, onRequestSort } = props;
+	const { t } = useTranslation();
 	const createSortHandler =
 		(property: keyof Data) => (event: React.MouseEvent<unknown>) => {
 			onRequestSort(event, property);
 		};
+
+	const headCells: readonly HeadCell[] = [
+		{
+			id: 'name',
+			numeric: false,
+			disablePadding: true,
+			label: t('users.name'),
+		},
+		{
+			id: 'email',
+			numeric: true,
+			disablePadding: false,
+			label: t('users.email'),
+		},
+		{
+			id: 'phone',
+			numeric: true,
+			disablePadding: false,
+			label: t('users.phone'),
+		},
+		{
+			id: 'zipcode',
+			numeric: true,
+			disablePadding: false,
+			label: t('users.zipcode'),
+		},
+		{
+			id: 'id',
+			numeric: true,
+			disablePadding: false,
+			label: 'ID',
+		},
+	];
 
 	return (
 		<TableHead>

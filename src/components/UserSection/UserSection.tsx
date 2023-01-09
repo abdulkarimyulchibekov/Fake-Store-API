@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { UserType } from '../../types';
 import { Loading } from '../Loading';
@@ -9,6 +10,8 @@ interface IProps {
 }
 
 export const UserSection = ({ userId }: IProps) => {
+	const { t } = useTranslation();
+
 	const [data, setData] = useState<UserType>();
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
@@ -26,7 +29,7 @@ export const UserSection = ({ userId }: IProps) => {
 		return (
 			<MainLayout>
 				<h2 className='user__name'>
-					User's name{' '}
+					{t('carts.name') + ' '}
 					<Link to={`/users/${userId}`}>
 						<code>{data?.name.firstname + ' ' + data?.name.lastname}</code>
 					</Link>

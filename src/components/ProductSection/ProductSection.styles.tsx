@@ -3,10 +3,8 @@ import styled from 'styled-components';
 export const Item = styled.li`
 	display: flex;
 	align-items: center;
-	background-color: #f0f0f0;
 	margin-bottom: 40px;
 	height: 400px;
-	padding: 20px 70px;
 
 	.item__image {
 		width: auto;
@@ -15,6 +13,12 @@ export const Item = styled.li`
 	}
 
 	.content {
+		background-color: #f0f0f0;
+		height: 400px;
+		display: flex;
+		align-items: center;
+		padding: 20px 70px;
+		margin-right: 70px;
 	}
 
 	.product__link {
@@ -23,10 +27,16 @@ export const Item = styled.li`
 		padding: 10px 13px;
 		color: #fff;
 		display: block;
-		width: 95px;
+		width: 150px;
+		text-align: center;
 		text-decoration: none;
 		border-radius: 8px;
 		transition: all 0.3s ease;
+
+		.quantity {
+			margin-right: 40px;
+			display: block;
+		}
 
 		&:hover {
 			background-color: #372b62db;

@@ -156,7 +156,7 @@ export const Account = () => {
 							className='form__text'></textarea>
 					</label>
 					<button type='submit' className='form__btn'>
-						Submit
+						{t('account.submit')}
 					</button>
 				</div>
 			</form>
