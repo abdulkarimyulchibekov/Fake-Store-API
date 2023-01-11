@@ -5,19 +5,21 @@ import { MainHeader, Nav } from './Header.styles';
 
 export const PublicHeader = () => {
 	const { t } = useTranslation();
+	const changeToUz = () => changeLanguage('uz');
+	const changeToRu = () => changeLanguage('ru');
 
 	return (
 		<MainHeader>
 			<Nav>
 				<button
-					onClick={() => changeLanguage('ru')}
+					onClick={changeToRu}
 					className={
 						t('language') === 'ru' ? 'active__btn btn' : 'btn passive__btn'
 					}>
 					Py
 				</button>
 				<button
-					onClick={() => changeLanguage('uz')}
+					onClick={changeToUz}
 					className={
 						t('language') === 'ru' ? 'passive__btn btn' : 'btn active__btn'
 					}>

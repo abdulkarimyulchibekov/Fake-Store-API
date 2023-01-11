@@ -1,11 +1,12 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, FormEvent } from 'react';
+import { MainLayout } from './SingleUser.styles';
 import { useParams } from 'react-router-dom';
 import { UserType } from '../../types';
-import { MainLayout } from './SingleUser.styles';
-import CallIcon from '@mui/icons-material/Call';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Loading } from '../../components';
+import { useTranslation } from 'react-i18next';
+import CallIcon from '@mui/icons-material/Call';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 export const SingleUser = () => {
 	const { id } = useParams();
@@ -13,6 +14,18 @@ export const SingleUser = () => {
 	const [loading, setLoading] = useState(false);
 	const [eye, setEye] = useState(false);
 	const inputRef = useRef<any>();
+	const { t } = useTranslation();
+
+	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
+		evt.preventDefault();
+	};
+
+	const handleClick = () => {
+		setEye(!eye);
+		inputRef.current.type === 'text'
+			? (inputRef.current.type = 'password')
+			: (inputRef.current.type = 'text');
+	};
 
 	useEffect(() => {
 		setLoading(true);
@@ -34,14 +47,15 @@ export const SingleUser = () => {
 				<div className='layout'>
 					<div className='layout__content'>
 						<div className='address'>
-							<p className='address__location'>Location Information</p>
+							<p className='address__location'>{t('user.location')}</p>
 							<div className='address__content'>
 								<p className='address__address'>
-									Address: {'  '}
-									{data?.address.city} {data?.address.street}{' '}
-									{data?.address.number}
+									{t('user.address')}: {data?.address.city}{' '}
+									{data?.address.street} {data?.address.number}
 								</p>
-								<p> Zip code: {data?.address.zipcode}</p>
+								<p>
+									{t('user.zipcode')}: {data?.address.zipcode}
+								</p>
 							</div>
 						</div>
 						<a className='user__call' href={`tel:${data?.phone}`}>
@@ -49,13 +63,9 @@ export const SingleUser = () => {
 							{data?.phone}
 						</a>
 					</div>
-					<form
-						onSubmit={(evt) => {
-							evt.preventDefault();
-						}}
-						className='layout__form form'>
+					<form onSubmit={handleSubmit} className='layout__form form'>
 						<label className='label'>
-							<span className='form__label'>User Email</span>
+							<span className='form__label'>{t('user.email')}</span>
 							<input
 								className='form__input'
 								readOnly
@@ -64,7 +74,7 @@ export const SingleUser = () => {
 							/>
 						</label>
 						<label className='label'>
-							<span className='form__label'>User User Name</span>
+							<span className='form__label'>{t('user.name')}</span>
 							<input
 								className='form__input'
 								readOnly
@@ -73,7 +83,7 @@ export const SingleUser = () => {
 							/>
 						</label>
 						<label>
-							<span className='form__label'>User Password</span>
+							<span className='form__label'>{t('user.password')}</span>
 							<input
 								ref={inputRef}
 								className='form__input'
@@ -82,14 +92,7 @@ export const SingleUser = () => {
 								type='password'
 							/>
 						</label>
-						<button
-							className='form__btn'
-							onClick={() => {
-								setEye(!eye);
-								inputRef.current.type === 'text'
-									? (inputRef.current.type = 'password')
-									: (inputRef.current.type = 'text');
-							}}>
+						<button className='form__btn' onClick={handleClick}>
 							{eye ? <VisibilityIcon /> : <VisibilityOffIcon />}
 						</button>
 					</form>

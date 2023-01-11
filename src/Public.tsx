@@ -1,7 +1,7 @@
 import { MainForm, PrivateLayout } from './Public.styles';
 import { useTranslation } from 'react-i18next';
 import { FormEvent, useState, useEffect } from 'react';
-import { useAuthStore } from './store/AuthStore';
+import { useAuthStore } from './store';
 import { useAccountStore } from './store/AccountStore';
 import { PublicHeader } from './components/PublicHeader/Header';
 import { useNavigate } from 'react-router-dom';
@@ -21,11 +21,9 @@ export const Public = () => {
 	const navigate = useNavigate();
 	const [loading, setLoading] = useState<boolean>(false);
 	const [disabled, setDisabled] = useState<boolean>(true);
-	const setName = useAccountStore((state) => state.setName);
-	const setEmail = useAccountStore((state) => state.setEmail);
-	const setPhone = useAccountStore((state) => state.setPhone);
-	const setAge = useAccountStore((state) => state.setAge);
-	const setDesc = useAccountStore((state) => state.setDesc);
+	const { setName, setEmail, setPhone, setAge, setDesc } = useAccountStore(
+		(state) => state,
+	);
 
 	const [data, setData] = useState<DataType>({
 		name: '',

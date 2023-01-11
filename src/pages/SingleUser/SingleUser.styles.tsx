@@ -21,7 +21,6 @@ export const MainLayout = styled.div`
 	}
 
 	.user__call {
-		/* color: #333; */
 		display: flex;
 		align-items: center;
 	}
@@ -55,6 +54,7 @@ export const MainLayout = styled.div`
 		width: 100%;
 		padding: 5px;
 		border-radius: 8px;
+		padding-left: 10px;
 	}
 
 	.form__label {

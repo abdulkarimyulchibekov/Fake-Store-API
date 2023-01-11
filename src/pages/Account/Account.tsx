@@ -1,43 +1,33 @@
 import { useNavigate } from 'react-router-dom';
-import { useAccountStore } from '../../store/AccountStore';
+import { useAccountStore } from '../../store';
 import { AccountMainLayout } from './Account.styles';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 export const Account = () => {
-	const setName = useAccountStore((state) => state.setName);
-	const setAge = useAccountStore((state) => state.setAge);
-	const setDesc = useAccountStore((state) => state.setDesc);
-	const setEmail = useAccountStore((state) => state.setEmail);
-	const setPhone = useAccountStore((state) => state.setPhone);
+	const State = useAccountStore((state) => state);
 
 	const navigate = useNavigate();
 
 	const { t } = useTranslation();
 
-	const name = useAccountStore((state) => state.name);
-	const age = useAccountStore((state) => state.age);
-	const description = useAccountStore((state) => state.description);
-	const email = useAccountStore((state) => state.email);
-	const phone = useAccountStore((state) => state.phone);
-
 	const [canSubmit, setCanSubmit] = useState({
-		age: age,
-		name: name,
-		bio: description,
-		email: email,
-		phone: phone,
+		age: State.age,
+		name: State.name,
+		bio: State.description,
+		email: State.email,
+		phone: State.phone,
 	});
 
 	const handleSubmit = (evt: any) => {
 		evt.preventDefault();
 
 		if (canSubmit.age && canSubmit.name) {
-			setName(canSubmit.name);
-			setAge(canSubmit.age);
-			setDesc(canSubmit.bio);
-			setEmail(canSubmit.email);
-			setPhone(canSubmit.phone);
+			State.setName(canSubmit.name);
+			State.setAge(canSubmit.age);
+			State.setDesc(canSubmit.bio);
+			State.setEmail(canSubmit.email);
+			State.setPhone(canSubmit.phone);
 			navigate(-1);
 		} else {
 			console.log('Else');
@@ -59,7 +49,7 @@ export const Account = () => {
 						<span>{t('account.name')}</span>
 						<input
 							name='name'
-							defaultValue={name}
+							defaultValue={canSubmit.name}
 							required
 							className='form__input'
 							type='text'
@@ -104,7 +94,7 @@ export const Account = () => {
 						<span>{t('account.email')}</span>
 						<input
 							name='email'
-							defaultValue={email ? email : ''}
+							defaultValue={canSubmit.email ? canSubmit.email : ''}
 							required
 							className='form__input'
 							onChange={(evt) => {
@@ -122,7 +112,7 @@ export const Account = () => {
 						<span>{t('account.phoneNumber')}</span>
 						<input
 							name='phone'
-							defaultValue={phone ? phone : ''}
+							defaultValue={canSubmit.phone ? canSubmit.phone : ''}
 							onChange={(evt) => {
 								if (
 									evt.target.value.match(/[ ]/) ||
@@ -145,7 +135,7 @@ export const Account = () => {
 					<label className='form__label'>
 						<span>{t('account.bio')}</span>
 						<textarea
-							defaultValue={description}
+							defaultValue={State.description}
 							rows={10}
 							onChange={(evt) => {
 								if (evt.target.value) {

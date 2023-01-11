@@ -1,4 +1,3 @@
-import React from 'react';
 import { useEffect, useState } from 'react';
 import { MainList } from './Category.styles';
 import { CategoryItem, Loading } from '../../components';

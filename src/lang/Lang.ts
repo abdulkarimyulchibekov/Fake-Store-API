@@ -48,6 +48,14 @@ export const Lang = {
 			count: 'Hisob',
 			category: 'Toifa',
 		},
+		user: {
+			location: "Joylashuv ma'lumotlari",
+			address: 'Manzil',
+			zipcode: 'Pochta indeksi',
+			email: 'Foydalanuvchi el. pochtasi',
+			name: 'Foydalanuvchi ismi',
+			password: 'Foydalanuvchi paroli',
+		},
 	},
 	ru: {
 		language: 'ru',
@@ -97,6 +105,14 @@ export const Lang = {
 			rating: 'Рейтинг',
 			count: 'Счет',
 			category: 'Категория',
+		},
+		user: {
+			location: 'Информация о местонахождении',
+			address: 'Адрес',
+			zipcode: 'Почтовый индекс',
+			email: 'Эл. почта пользователя',
+			name: 'Имя пользователя',
+			password: 'Пароль пользователя',
 		},
 	},
 };

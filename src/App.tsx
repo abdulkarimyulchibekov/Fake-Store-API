@@ -3,7 +3,7 @@ import { initReactI18next } from 'react-i18next';
 import { Lang } from './lang/Lang';
 import { Private } from './Private';
 import { Public } from './Public';
-import { useAuthStore } from './store/AuthStore';
+import { useAuthStore } from './store';
 
 i18n.use(initReactI18next).init({
 	fallbackLng: 'ru',

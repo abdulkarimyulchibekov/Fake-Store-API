@@ -1,26 +1,28 @@
 import { changeLanguage } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { useAccountStore } from '../../store/AccountStore';
+import { useAccountStore } from '../../store';
 import { Nav } from '../PublicHeader/Header.styles';
 import { HeaderMainLayout } from './Header.styles';
 
 export const Header = () => {
 	const { t } = useTranslation();
-	const name = useAccountStore((state) => state.name);
-	const roll = useAccountStore((state) => state.roll);
+	const { name, roll } = useAccountStore((state) => state);
+	const changeToUz = () => changeLanguage('uz');
+	const changeToRu = () => changeLanguage('ru');
+
 	return (
 		<HeaderMainLayout>
 			<Nav>
 				<button
-					onClick={() => changeLanguage('ru')}
+					onClick={changeToRu}
 					className={
 						t('language') === 'ru' ? 'active__btn btn' : 'btn passive__btn'
 					}>
 					Py
 				</button>
 				<button
-					onClick={() => changeLanguage('uz')}
+					onClick={changeToUz}
 					className={
 						t('language') === 'ru' ? 'passive__btn btn' : 'btn active__btn'
 					}>
