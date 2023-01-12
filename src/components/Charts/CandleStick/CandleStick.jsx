@@ -1,7 +1,7 @@
-import React from 'react';
+import { Component } from 'react';
 import ReactApexChart from 'react-apexcharts';
 
-export class CandleStick extends React.Component {
+export class CandleStick extends Component {
 	constructor(props) {
 		super(props);
 

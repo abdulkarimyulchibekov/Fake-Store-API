@@ -1,8 +1,8 @@
-import React from 'react';
+import { Component } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import './index.scss';
 
-export class ApexChart extends React.Component {
+export class ApexChart extends Component {
 	constructor(props) {
 		super(props);
 

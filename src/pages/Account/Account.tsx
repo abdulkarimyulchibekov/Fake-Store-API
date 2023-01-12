@@ -6,9 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 export const Account = () => {
 	const State = useAccountStore((state) => state);
-
 	const navigate = useNavigate();
-
 	const { t } = useTranslation();
 
 	const [canSubmit, setCanSubmit] = useState({

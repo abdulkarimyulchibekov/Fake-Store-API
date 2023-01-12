@@ -1,5 +1,4 @@
 import { changeLanguage } from 'i18next';
-import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { MainHeader, Nav } from './Header.styles';
 
