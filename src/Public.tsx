@@ -16,7 +16,6 @@ export const Public = () => {
 	const setToken = useAuthStore((state) => state.setToken);
 	const { ref, value } = useIMask(opts);
 	const [loading, setLoading] = useState<boolean>(false);
-	const [disabled, setDisabled] = useState<boolean>(true);
 	const setAll = useAccountStore((state) => state.setAll);
 
 	const {
@@ -24,14 +23,6 @@ export const Public = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
-
-	useEffect(() => {
-		if (errors) {
-			setDisabled(true);
-		} else {
-			setDisabled(false);
-		}
-	}, [errors]);
 
 	return (
 		<>
