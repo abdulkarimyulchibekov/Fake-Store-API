@@ -8,6 +8,14 @@ export type ProductType = {
 	title: string;
 };
 
+export type DataType = {
+	name: string;
+	phone: string;
+	// email: string;
+	// age: string;
+	// bio: string;
+};
+
 export type UserType = {
 	id: number;
 	email: string;

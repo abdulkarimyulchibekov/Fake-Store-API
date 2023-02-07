@@ -11,10 +11,8 @@ export const PrivateLayout = styled.div`
 
 export const MainForm = styled.form`
 	width: 400px;
-	height: 400px;
 	background-color: #fff;
 	padding: 20px;
-	text-align: center;
 
 	.form__header {
 		margin-top: 0;
@@ -22,7 +20,30 @@ export const MainForm = styled.form`
 
 	.form__input {
 		width: 100%;
-		margin-bottom: 20px;
+		padding-top: 5px;
+		margin-bottom: 10px;
+		padding-bottom: 5px;
+		padding-left: 7px;
+		border-radius: 8px;
+	}
+
+	button {
+		display: block;
+		margin: 0 auto;
+	}
+
+	label {
+		display: block;
+		margin-bottom: 25px;
+	}
+
+	.text {
+		margin: 0;
+		margin-bottom: 10px;
+	}
+
+	input {
+		width: 100%;
 		padding-top: 5px;
 		padding-bottom: 5px;
 		padding-left: 7px;
@@ -48,17 +69,5 @@ export const MainForm = styled.form`
 			color: #777777;
 			background-color: #fff;
 		}
-	}
-
-	.form__text {
-		resize: none;
-		display: block;
-		width: 100%;
-		margin-bottom: 20px;
-		padding-top: 5px;
-		padding-bottom: 5px;
-		padding-left: 7px;
-		border: 1.6px #333 solid;
-		border-radius: 8px;
 	}
 `;

@@ -1,166 +1,102 @@
+import { useEffect, useState } from 'react';
 import { MainForm, PrivateLayout } from './Public.styles';
-import { useTranslation } from 'react-i18next';
-import { FormEvent, useState, useEffect } from 'react';
-import { useAuthStore } from './store';
-import { useAccountStore } from './store/AccountStore';
-import { PublicHeader } from './components/PublicHeader/Header';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { PublicHeader } from './components';
+import { useAccountStore } from './store';
+import { FieldValues, useForm } from 'react-hook-form';
+import { useAuthStore } from './store';
+import { useIMask } from 'react-imask';
 import { Button } from 'antd';
 
-type DataType = {
-	name: string;
-	phone: string;
-	email: string;
-	age: string;
-	bio: string;
-};
-
 export const Public = () => {
-	const { t } = useTranslation();
-	const setToken = useAuthStore((state) => state.setToken);
 	const navigate = useNavigate();
+	const { t } = useTranslation();
+	const [opts] = useState({ mask: '+{998}(00)000-00-00' });
+	const setToken = useAuthStore((state) => state.setToken);
+	const { ref, value } = useIMask(opts);
 	const [loading, setLoading] = useState<boolean>(false);
 	const [disabled, setDisabled] = useState<boolean>(true);
-	const { setName, setEmail, setPhone, setAge, setDesc } = useAccountStore(
-		(state) => state,
-	);
+	const setAll = useAccountStore((state) => state.setAll);
 
-	const [data, setData] = useState<DataType>({
-		name: '',
-		phone: '',
-		email: '',
-		age: '',
-		bio: '',
-	});
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm();
 
 	useEffect(() => {
-		if (data.email && data.phone && data.name && data.age) {
-			setDisabled(false);
-		} else {
+		if (errors) {
 			setDisabled(true);
+		} else {
+			setDisabled(false);
 		}
-	}, [data]);
-
-	const handleSubmit = (evt: FormEvent) => {
-		evt.preventDefault();
-		setLoading(true);
-		fetch('https://fakestoreapi.com/auth/login', {
-			method: 'POST',
-			body: JSON.stringify({
-				username: 'johnd',
-				password: 'm38rmF$',
-			}),
-		})
-			.then((res) => res.json())
-			.then((data) => {})
-			.catch((err) => {})
-			.finally(() => {
-				setToken('eyJhbGciOiJIUzI1NiIsInR');
-				setLoading(false);
-				setName(data.name);
-				setPhone(data.phone);
-				setEmail(data.email);
-				setDesc(data.bio);
-				setAge(data.age);
-			});
-
-		navigate('/');
-	};
+	}, [errors]);
 
 	return (
 		<>
 			<PublicHeader />
 			<PrivateLayout>
-				<MainForm autoComplete='off' onSubmit={handleSubmit}>
-					<h2 className='form__header'>{t('auth.login')}</h2>
-					<input
-						className='form__input'
-						name='name'
-						required
-						type='text'
-						placeholder={`${t('auth.formName')}`}
-						onChange={(evt) => {
-							evt.target.value
-								? setData({ ...data, name: evt.target.value })
-								: setData({ ...data, name: '' });
-						}}
-						aria-label='Enter your full name'
-					/>
-					<input
-						aria-label='Enter your email'
-						className='form__input'
-						required
-						name='email'
-						onChange={(evt) => {
-							if (
-								evt.target.value
-									.toLowerCase()
-									.match(
-										/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-									)
-							) {
-								evt.target.classList.remove('invalid');
-								setData({ ...data, email: evt.target.value });
-							} else {
-								evt.target.classList.add('invalid');
-								setData({ ...data, email: '' });
-							}
-						}}
-						type='email'
-						placeholder={`${t('auth.formEmail')}`}
-					/>
-					<input
-						aria-label='Enter your phone number'
-						className='form__input'
-						onChange={(evt) => {
-							if (
-								evt.target.value.match(/[ ]/) ||
-								evt.target.value.match(/[a-z]/) ||
-								evt.target.value.match(/[-!$%^&*()_|~=`{}[\]:";'<>?,./]/)
-							) {
-								evt.target.classList.add('invalid');
-								evt.target.classList.remove('valid');
-								setData({ ...data, phone: '' });
-							} else {
-								evt.target.classList.add('valid');
-								setData({ ...data, phone: evt.target.value });
-								evt.target.classList.remove('invalid');
-							}
-						}}
-						type='text'
-						name='phone_number'
-						required
-						placeholder={`${t('auth.formNumber')}`}
-					/>
-					<input
-						type='number'
-						className='form__input'
-						aria-label='Enter your age'
-						onChange={(evt) => {
-							if (+evt.target.value >= 0) {
-								evt.target.classList.remove('invalid');
-								setData({
-									...data,
-									age: evt.target.value,
-								});
-							} else {
-								evt.target.classList.add('invalid');
-								setData({
-									...data,
-									age: '',
-								});
-							}
-						}}
-						placeholder={`${t('auth.formAge')}`}
-						name='age'
-					/>
-					<textarea
-						placeholder={`${t('auth.formText')}`}
-						onChange={(evt) => {
-							setData({ ...data, bio: evt.target.value });
-						}}
-						className='form__text'></textarea>
-					<Button disabled={disabled} onClick={handleSubmit} loading={loading}>
+				<MainForm
+					autoComplete='off'
+					onSubmit={handleSubmit((data_: FieldValues, evt: any) => {
+						setLoading(true);
+						setTimeout(() => {
+							setLoading(false);
+							setToken('something5+656566f');
+							navigate('/');
+						}, 1000);
+						evt?.preventDefault();
+						setAll({ ...data_, phone: value });
+						navigate('/');
+					})}>
+					<label>
+						<p className='text'>{t('auth.formName')}</p>
+						<input
+							placeholder={`${t('auth.formName')}`}
+							{...register('name', {
+								required: `${t('auth.required')}`,
+							})}
+							className={errors.name ? 'form__input invalid' : 'form__input'}
+							type='text'
+						/>
+						{errors.name && <span>{`${errors.name.message}`}</span>}
+					</label>
+					<label>
+						<p className='text'>{t('auth.formNumber')}</p>
+						<input
+							className={value.length < 13 ? 'form__input invalid' : 'valid'}
+							placeholder={`${t('auth.formNumber')}`}
+							{...register('phone')}
+							ref={ref}
+						/>
+						{value.length < 13 && <span>{`${t('auth.phone')}`}</span>}
+					</label>
+					<label>
+						<p className='text'>{t('auth.formEmail')}</p>
+						<input
+							placeholder={`${t('auth.formEmail')}`}
+							{...register('email', {
+								required: `${t('auth.required')}`,
+							})}
+							className={errors.name ? 'form__input invalid' : 'form__input'}
+							type='email'
+						/>
+						{errors.email && <span>{`${errors.email.message}`}</span>}
+					</label>
+					<label>
+						<p className='text'>{t('auth.formName')}</p>
+						<input
+							type='number'
+							placeholder={`${t('auth.formAge')}`}
+							{...register('age', {
+								required: `${t('auth.required')}`,
+							})}
+							className={errors.age ? 'form__input invalid' : 'form__input'}
+						/>
+						{errors.age && <span>{`${errors.age.message}`}</span>}
+					</label>
+					<Button htmlType='submit' loading={loading}>
 						{t('auth.submit')}
 					</Button>
 				</MainForm>

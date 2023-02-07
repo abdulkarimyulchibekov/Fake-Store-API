@@ -10,6 +10,8 @@ export const Lang = {
 			submit: "Jo'natish",
 			formAge: 'Yoshingizni kiriting...',
 			formText: 'Tavsif kiriting...',
+			required: "Bu bo'limni to'ldirish majburiy",
+			phone: 'Telefon raqami 13ta son qabul qilishi kerak',
 		},
 		menu: {
 			dashboard: 'Boshqaruv paneli',
@@ -68,6 +70,8 @@ export const Lang = {
 			submit: 'Войти',
 			formAge: 'Введите свой возраст...',
 			formText: 'Введите описание...',
+			required: 'Этот раздел является обязательным',
+			phone: 'Номер телефона должен содержать 13 цифр.',
 		},
 		menu: {
 			dashboard: 'Приборная панель',
