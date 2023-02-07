@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
 import { MainForm, PrivateLayout } from './Public.styles';
+import { useAccountStore, useAuthStore } from './store';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { PublicHeader } from './components';
-import { useAccountStore } from './store';
-import { FieldValues, useForm } from 'react-hook-form';
-import { useAuthStore } from './store';
 import { useIMask } from 'react-imask';
+import { useState } from 'react';
 import { Button } from 'antd';
 
 export const Public = () => {
