@@ -1,7 +1,6 @@
 import { FieldValues } from 'react-hook-form';
-import create from 'zustand';
 import { persist } from 'zustand/middleware';
-import { DataType } from '../types';
+import create from 'zustand';
 
 const account = (set: any) => ({
 	name: '',
