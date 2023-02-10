@@ -27,6 +27,10 @@ export const MainForm = styled.form`
 		border-radius: 8px;
 	}
 
+	.textarea {
+		resize: vertical;
+	}
+
 	button {
 		display: block;
 		margin: 0 auto;

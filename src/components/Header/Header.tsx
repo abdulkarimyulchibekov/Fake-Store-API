@@ -30,7 +30,7 @@ export const Header = () => {
 				</button>
 			</Nav>
 			<div className='account'>
-				<Link className='account__link' to='/account'>
+				<Link data-test='account-page' className='account__link' to='/account'>
 					<img
 						className='account__image'
 						width={36}

@@ -12,6 +12,7 @@ export const Lang = {
 			formText: 'Tavsif kiriting...',
 			required: "Bu bo'limni to'ldirish majburiy",
 			phone: 'Telefon raqami 13ta son qabul qilishi kerak',
+			email: 'Yaroqli elektron pochta manzilini kiriting',
 		},
 		menu: {
 			dashboard: 'Boshqaruv paneli',
@@ -72,6 +73,7 @@ export const Lang = {
 			formText: 'Введите описание...',
 			required: 'Этот раздел является обязательным',
 			phone: 'Номер телефона должен содержать 13 цифр.',
+			email: 'Введите действительный адрес электронной почты',
 		},
 		menu: {
 			dashboard: 'Приборная панель',

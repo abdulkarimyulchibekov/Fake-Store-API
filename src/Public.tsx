@@ -13,7 +13,7 @@ export const Public = () => {
 	const { t } = useTranslation();
 	const [opts] = useState({ mask: '+{998}(00)000-00-00' });
 	const setToken = useAuthStore((state) => state.setToken);
-	const { ref, value } = useIMask(opts);
+	const { ref, value, maskRef } = useIMask(opts);
 	const [loading, setLoading] = useState<boolean>(false);
 	const setAll = useAccountStore((state) => state.setAll);
 
@@ -31,6 +31,8 @@ export const Public = () => {
 					autoComplete='off'
 					onSubmit={handleSubmit((data_: FieldValues, evt: any) => {
 						setLoading(true);
+						console.log(data_);
+
 						setTimeout(() => {
 							setLoading(false);
 							setToken('something5+656566f');
@@ -43,6 +45,7 @@ export const Public = () => {
 					<label>
 						<p className='text'>{t('auth.formName')}</p>
 						<input
+							data-test='input-name'
 							placeholder={`${t('auth.formName')}`}
 							{...register('name', {
 								required: `${t('auth.required')}`,
@@ -55,6 +58,7 @@ export const Public = () => {
 					<label>
 						<p className='text'>{t('auth.formNumber')}</p>
 						<input
+							data-test='input-phone'
 							className={value.length < 13 ? 'form__input invalid' : 'valid'}
 							placeholder={`${t('auth.formNumber')}`}
 							{...register('phone')}
@@ -65,18 +69,25 @@ export const Public = () => {
 					<label>
 						<p className='text'>{t('auth.formEmail')}</p>
 						<input
+							data-test='input-email'
 							placeholder={`${t('auth.formEmail')}`}
 							{...register('email', {
 								required: `${t('auth.required')}`,
+								pattern: {
+									value:
+										/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+									message: `${t('auth.email')}`,
+								},
 							})}
-							className={errors.name ? 'form__input invalid' : 'form__input'}
+							className={errors.email ? 'form__input invalid' : 'form__input'}
 							type='email'
 						/>
 						{errors.email && <span>{`${errors.email.message}`}</span>}
 					</label>
 					<label>
-						<p className='text'>{t('auth.formName')}</p>
+						<p className='text'>{t('auth.formAge')}</p>
 						<input
+							data-test='input-age'
 							type='number'
 							placeholder={`${t('auth.formAge')}`}
 							{...register('age', {
@@ -86,7 +97,13 @@ export const Public = () => {
 						/>
 						{errors.age && <span>{`${errors.age.message}`}</span>}
 					</label>
-					<Button htmlType='submit' loading={loading}>
+					<label>
+						<p className='text'>{t('auth.formText')}</p>
+						<textarea
+							className='form__input textarea'
+							{...register('desc')}></textarea>
+					</label>
+					<Button data-test='submit-btn' htmlType='submit' loading={loading}>
 						{t('auth.submit')}
 					</Button>
 				</MainForm>

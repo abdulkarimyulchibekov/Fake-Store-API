@@ -3,11 +3,17 @@ import { useAccountStore } from '../../store';
 import { AccountMainLayout } from './Account.styles';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useForm } from 'react-hook-form';
 
 export const Account = () => {
 	const State = useAccountStore((state) => state);
 	const navigate = useNavigate();
 	const { t } = useTranslation();
+	const {
+		register,
+		formState: { errors },
+		handleSubmit,
+	} = useForm();
 
 	const [canSubmit, setCanSubmit] = useState({
 		age: State.age,
@@ -17,7 +23,7 @@ export const Account = () => {
 		phone: State.phone,
 	});
 
-	const handleSubmit = (evt: any) => {
+	const handleSubmitting = (evt: any) => {
 		evt.preventDefault();
 
 		if (canSubmit.age && canSubmit.name) {
@@ -34,7 +40,7 @@ export const Account = () => {
 
 	return (
 		<AccountMainLayout>
-			<form autoComplete='off' onSubmit={handleSubmit} className='form'>
+			<form autoComplete='off' onSubmit={handleSubmitting} className='form'>
 				<img
 					className='form__image'
 					height={600}
@@ -134,7 +140,6 @@ export const Account = () => {
 						<span>{t('account.bio')}</span>
 						<textarea
 							defaultValue={State.description}
-							rows={10}
 							onChange={(evt) => {
 								if (evt.target.value) {
 									setCanSubmit({ ...canSubmit, bio: evt.target.value });

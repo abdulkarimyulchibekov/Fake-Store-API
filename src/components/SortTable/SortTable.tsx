@@ -280,6 +280,7 @@ export function EnhancedTable({ url }: IProps) {
 												</th>
 												<td className='row__item'>
 													<Link
+														data-test='product-item'
 														className='row-link'
 														to={`/products/${row.calories}`}>
 														{row.fat}
@@ -287,6 +288,7 @@ export function EnhancedTable({ url }: IProps) {
 												</td>
 												<td className='row__item'>
 													<Link
+														data-test='product-item'
 														className='row-link'
 														to={`/products/${row.calories}`}>
 														{row.carbs}
@@ -294,6 +296,7 @@ export function EnhancedTable({ url }: IProps) {
 												</td>
 												<td className='row__item'>
 													<Link
+														data-test='product-item'
 														className='row-link'
 														to={`/products/${row.calories}`}>
 														{row.protein}
@@ -301,6 +304,7 @@ export function EnhancedTable({ url }: IProps) {
 												</td>
 												<td className='row__item'>
 													<Link
+														data-test='product-item'
 														className='row-link'
 														to={`/products/${row.calories}`}>
 														{row.calories}
