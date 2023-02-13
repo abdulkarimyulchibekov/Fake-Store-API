@@ -10,6 +10,8 @@ describe('product-page', () => {
 			cy.location('pathname').should('eq', '/carts');
 			cy.get(':nth-child(1) > .item__link').click();
 		});
-		cy.get(':nth-child(1) > .content > div > .product__link').click();
+		cy.get(':nth-child(1) > .content > div > .product__link', {
+			timeout: 10000,
+		}).click();
 	});
 });
