@@ -11,9 +11,8 @@ import { Button } from 'antd';
 export const Public = () => {
 	const navigate = useNavigate();
 	const { t } = useTranslation();
-	const [opts] = useState({ mask: '+{998}(00)000-00-00' });
 	const setToken = useAuthStore((state) => state.setToken);
-	const { ref, value, maskRef } = useIMask(opts);
+	const { ref, value } = useIMask({ mask: '+{998}(00)000-00-00' });
 	const [loading, setLoading] = useState<boolean>(false);
 	const setAll = useAccountStore((state) => state.setAll);
 
@@ -32,7 +31,6 @@ export const Public = () => {
 					onSubmit={handleSubmit((data_: FieldValues, evt: any) => {
 						setLoading(true);
 						console.log(data_);
-
 						setTimeout(() => {
 							setLoading(false);
 							setToken('something5+656566f');

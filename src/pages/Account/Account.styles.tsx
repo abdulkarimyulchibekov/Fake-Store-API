@@ -4,11 +4,7 @@ export const AccountMainLayout = styled.div`
 	background-color: #fff;
 	padding: 20px;
 	margin: 20px;
-
-	.form {
-		justify-content: space-between;
-		display: flex;
-	}
+	display: flex;
 
 	.form__image {
 		margin-right: 30px;

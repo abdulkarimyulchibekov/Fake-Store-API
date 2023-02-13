@@ -28,12 +28,13 @@ export const Lang = {
 			rate: 'Baho',
 		},
 		account: {
-			name: "Ismingizni o'zgartirin",
-			age: "Yoshingizni o'zgartirin",
+			name: "Ismingizni o'zgartiring",
+			age: "Yoshingizni o'zgartiring",
 			email: "Elektron pochtangizni o'zgartiring",
 			phoneNumber: "Telefon raqamingizni o'zgartiring",
 			bio: "Tavsifingizni o'zgartiring",
 			submit: "O'zgartirish",
+			ageError: "Yoshingiz musbat raqam bo'la olmaydi",
 		},
 		users: {
 			name: 'Ism',
