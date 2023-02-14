@@ -103,6 +103,14 @@ export const Account = () => {
 					)}
 				</label>
 
+				<label className='form__label'>
+					<span>{t('account.bio')}</span>
+					<textarea
+						{...register('description')}
+						defaultValue={State.description}
+						className='form__input textarea'></textarea>
+				</label>
+
 				<button type='submit' className='form__btn'>
 					{t('account.submit')}
 				</button>

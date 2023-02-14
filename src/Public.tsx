@@ -117,7 +117,9 @@ export const Public = () => {
 					</label>
 					<label>
 						<p className='text'>{t('auth.formText')}</p>
-						<textarea className='textarea' {...register('desc')}></textarea>
+						<textarea
+							className='textarea'
+							{...register('description')}></textarea>
 					</label>
 					<Button data-test='submit-btn' htmlType='submit' loading={loading}>
 						{t('auth.submit')}

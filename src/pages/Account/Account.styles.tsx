@@ -57,4 +57,8 @@ export const AccountMainLayout = styled.div`
 		width: 400px;
 		border-radius: 4px;
 	}
+
+	.textarea {
+		resize: none;
+	}
 `;
