@@ -1,6 +1,6 @@
 # My First Testing App
 
-Get testing library with Cypress
+My First Testing App with [Cypress](https://cypress.io).
 
 # Getting Started with Create React App
 
