@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { PublicHeader } from './components';
 import { useIMask } from 'react-imask';
 import { useState } from 'react';
+import { Regex } from './types';
 import { Button } from 'antd';
 
 export const Public = () => {
@@ -29,16 +30,25 @@ export const Public = () => {
 				<MainForm
 					autoComplete='off'
 					onSubmit={handleSubmit((data_: FieldValues, evt: any) => {
-						setLoading(true);
-						console.log(data_);
-						setTimeout(() => {
-							setLoading(false);
-							setToken('something5+656566f');
+						console.log(value);
+						console.log(ref.current?.value);
+						if (ref.current?.value && ref.current?.value.length < 17) {
+							ref.current?.focus();
+							ref.current?.classList.add('invalid');
+							console.log('if');
+						} else {
+							console.log('else');
+							setLoading(true);
+							evt?.preventDefault();
+							console.log(data_);
+							setTimeout(() => {
+								setLoading(false);
+								setToken('something5+656566f');
+								navigate('/');
+							}, 1000);
+							setAll({ ...data_, phone: value });
 							navigate('/');
-						}, 1000);
-						evt?.preventDefault();
-						setAll({ ...data_, phone: value });
-						navigate('/');
+						}
 					})}>
 					<label>
 						<p className='text'>{t('auth.formName')}</p>
@@ -57,12 +67,19 @@ export const Public = () => {
 						<p className='text'>{t('auth.formNumber')}</p>
 						<input
 							data-test='input-phone'
-							className={value.length < 13 ? 'form__input invalid' : 'valid'}
+							className={
+								ref.current?.value && ref.current?.value.length < 17
+									? 'form__input invalid'
+									: 'valid'
+							}
 							placeholder={`${t('auth.formNumber')}`}
 							{...register('phone')}
+							required
 							ref={ref}
 						/>
-						{value.length < 13 && <span>{`${t('auth.phone')}`}</span>}
+						{ref.current?.value && ref.current?.value.length < 17 && (
+							<span>{`${t('auth.phone')}`}</span>
+						)}
 					</label>
 					<label>
 						<p className='text'>{t('auth.formEmail')}</p>
@@ -72,8 +89,7 @@ export const Public = () => {
 							{...register('email', {
 								required: `${t('auth.required')}`,
 								pattern: {
-									value:
-										/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i,
+									value: Regex,
 									message: `${t('auth.email')}`,
 								},
 							})}

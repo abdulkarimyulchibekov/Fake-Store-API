@@ -52,6 +52,7 @@ export const MainForm = styled.form`
 		padding-bottom: 5px;
 		padding-left: 7px;
 		border-radius: 8px;
+		outline: 0;
 	}
 
 	.invalid {
