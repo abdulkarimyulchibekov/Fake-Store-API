@@ -19,8 +19,6 @@ export const Account = () => {
 		handleSubmit,
 	} = useForm();
 
-	console.log(errors);
-
 	return (
 		<AccountMainLayout>
 			<img
@@ -88,17 +86,21 @@ export const Account = () => {
 				<label className='form__label'>
 					<span>{t('account.phoneNumber')}</span>
 					<input
-						{...register('phone', {
-							required: false,
-						})}
-						required
-						type='text'
-						ref={ref}
+						data-test='input-phone'
 						className={
-							value.length < 13 ? 'form__input invalid' : 'form__input'
+							ref.current?.value && ref.current?.value.length < 17
+								? 'form__input invalid'
+								: 'form__input'
 						}
+						placeholder={`${t('auth.formNumber')}`}
+						{...register('phone')}
+						required
+						ref={ref}
 						defaultValue={State.phone}
 					/>
+					{ref.current?.value && ref.current?.value.length < 17 && (
+						<span>{`${t('auth.phone')}`}</span>
+					)}
 				</label>
 
 				<button type='submit' className='form__btn'>

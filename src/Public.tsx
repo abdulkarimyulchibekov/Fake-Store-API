@@ -70,7 +70,7 @@ export const Public = () => {
 							className={
 								ref.current?.value && ref.current?.value.length < 17
 									? 'form__input invalid'
-									: 'valid'
+									: 'form__input'
 							}
 							placeholder={`${t('auth.formNumber')}`}
 							{...register('phone')}
@@ -106,6 +106,10 @@ export const Public = () => {
 							placeholder={`${t('auth.formAge')}`}
 							{...register('age', {
 								required: `${t('auth.required')}`,
+								pattern: {
+									value: /^[1-9]\d*$/,
+									message: `${'account.ageError'}`,
+								},
 							})}
 							className={errors.age ? 'form__input invalid' : 'form__input'}
 						/>
@@ -113,9 +117,7 @@ export const Public = () => {
 					</label>
 					<label>
 						<p className='text'>{t('auth.formText')}</p>
-						<textarea
-							className='form__input textarea'
-							{...register('desc')}></textarea>
+						<textarea className='textarea' {...register('desc')}></textarea>
 					</label>
 					<Button data-test='submit-btn' htmlType='submit' loading={loading}>
 						{t('auth.submit')}

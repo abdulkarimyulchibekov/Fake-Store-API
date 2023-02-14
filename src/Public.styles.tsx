@@ -18,17 +18,14 @@ export const MainForm = styled.form`
 		margin-top: 0;
 	}
 
-	.form__input {
-		width: 100%;
-		padding-top: 5px;
-		margin-bottom: 10px;
-		padding-bottom: 5px;
-		padding-left: 7px;
-		border-radius: 8px;
-	}
-
 	.textarea {
 		resize: vertical;
+		width: 100%;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		outline: 0;
+		padding-left: 7px;
+		border-radius: 8px;
 	}
 
 	button {
