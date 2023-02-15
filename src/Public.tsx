@@ -30,17 +30,12 @@ export const Public = () => {
 				<MainForm
 					autoComplete='off'
 					onSubmit={handleSubmit((data_: FieldValues, evt: any) => {
-						console.log(value);
-						console.log(ref.current?.value);
 						if (ref.current?.value && ref.current?.value.length < 17) {
 							ref.current?.focus();
 							ref.current?.classList.add('invalid');
-							console.log('if');
 						} else {
-							console.log('else');
 							setLoading(true);
 							evt?.preventDefault();
-							console.log(data_);
 							setTimeout(() => {
 								setLoading(false);
 								setToken('something5+656566f');

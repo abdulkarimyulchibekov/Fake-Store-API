@@ -2,7 +2,7 @@ import { AccountMainLayout } from './Account.styles';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAccountStore } from '../../store';
-import { useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { useIMask } from 'react-imask';
 import { useState } from 'react';
 import { Regex } from './regex';
@@ -31,14 +31,20 @@ export const Account = () => {
 			<form
 				className='form'
 				autoComplete='off'
-				onSubmit={handleSubmit((data) => {
-					console.log('hello');
-					State.setAll({ ...data, phone: value });
-					navigate('/');
+				onSubmit={handleSubmit((data_: FieldValues, evt: any) => {
+					if (ref.current?.value && ref.current?.value.length < 17) {
+						ref.current?.focus();
+						ref.current?.classList.add('invalid');
+					} else {
+						evt?.preventDefault();
+						State.setAll({ ...data_, phone: value });
+						navigate('/');
+					}
 				})}>
 				<label className='form__label'>
 					<span>{t('account.name')}</span>
 					<input
+						data-test='account-name'
 						{...register('name', {
 							required: `${t('auth.required')}`,
 						})}
@@ -52,11 +58,12 @@ export const Account = () => {
 				<label className='form__label'>
 					<span>{t('account.age')}</span>
 					<input
+						data-test='account-age'
 						{...register('age', {
 							required: 'Required',
 							pattern: {
 								value: /^[1-9]\d*$/,
-								message: `${'account.ageError'}`,
+								message: `${t('account.ageError')}`,
 							},
 						})}
 						defaultValue={State.age}
@@ -69,6 +76,7 @@ export const Account = () => {
 				<label className='form__label'>
 					<span>{t('account.email')}</span>
 					<input
+						data-test='account-email'
 						{...register('email', {
 							required: 'Required',
 							pattern: {
@@ -86,7 +94,7 @@ export const Account = () => {
 				<label className='form__label'>
 					<span>{t('account.phoneNumber')}</span>
 					<input
-						data-test='input-phone'
+						data-test='account-phone'
 						className={
 							ref.current?.value && ref.current?.value.length < 17
 								? 'form__input invalid'
@@ -106,12 +114,13 @@ export const Account = () => {
 				<label className='form__label'>
 					<span>{t('account.bio')}</span>
 					<textarea
+						data-test='account-bio'
 						{...register('description')}
 						defaultValue={State.description}
 						className='form__input textarea'></textarea>
 				</label>
 
-				<button type='submit' className='form__btn'>
+				<button data-test='account-submit' type='submit' className='form__btn'>
 					{t('account.submit')}
 				</button>
 			</form>

@@ -18,8 +18,6 @@ export const SingleCart = () => {
 			.finally(() => setLoading(false));
 	}, [id]);
 
-	console.log(data);
-
 	if (loading) {
 		return <Loading />;
 	} else {

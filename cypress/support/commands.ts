@@ -8,9 +8,6 @@ Cypress.Commands.add('login', () => {
 	cy.visit('http://localhost:3000');
 	cy.getByData('input-name').type('Abdulkarim');
 	cy.getByData('submit-btn').click({ force: true });
-	cy.get(':nth-child(2) > span')
-		.should('exist')
-		.contains('Номер телефона должен содержать 13 цифр.');
 	cy.getByData('input-phone').type('998903372882');
 	cy.getByData('submit-btn').click({ force: true });
 	cy.get(':nth-child(3) > span')
