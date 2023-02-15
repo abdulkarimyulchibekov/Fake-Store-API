@@ -7,7 +7,7 @@ describe('account page', () => {
 		cy.getByData('account-name').clear().type('qwerty');
 		let ageInput = cy.getByData('account-age');
 		ageInput.clear().type('-16');
-		cy.getByData('account-submit').click();
+		submitBtn.click();
 		cy.get('.form > :nth-child(2) > :nth-child(3)')
 			.should('exist')
 			.contains('Ваш возраст не может быть отрицательным числом');
