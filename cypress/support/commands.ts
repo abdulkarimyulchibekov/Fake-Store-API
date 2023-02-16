@@ -18,7 +18,7 @@ Cypress.Commands.add('login', () => {
 	cy.get(':nth-child(3) > span', { timeout: 10000 })
 		.should('exist')
 		.contains('Этот раздел является обязательным');
-	cy.getByData('input-email').type('abdulkarim@gfdsfgds');
+	cy.getByData('input-email').type('abdulkarim@gmail');
 	submitBtn.click();
 	cy.get(':nth-child(3) > span', { timeout: 10000 })
 		.should('exist')
