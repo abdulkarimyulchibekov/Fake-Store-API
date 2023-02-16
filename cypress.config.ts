@@ -6,6 +6,8 @@ export default defineConfig({
     baseUrl: 'https://faksestoreapi.com/',
     requestTimeout: 10000,
     screenshotOnRunFailure: true,
-    watchForFileChanges: false
+    watchForFileChanges: false,
+    screenshotsFolder: 'cypress/screenshots',
+    downloadsFolder: 'cypress/downloads'
   }
 });
